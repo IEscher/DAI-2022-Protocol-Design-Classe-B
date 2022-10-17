@@ -40,20 +40,27 @@
 * Specific elements (if useful)
     * Supported operations
 
-      -> chiffre, opération (=,+,-,*,/)
+      -> client send    : digit, operation (=, +, -, *, /, del, reset, end)
 
-    * Error handling
+      -> client recieve : result string
 
-      -> processed by the server, messages the client
+      -> server recieve : digit, operation
 
-    * Extensibility
+      -> server send    : result string
 
-      -> other op, full string process, 
+* Error handling
+
+  -> processed by the server, messages the client
+
+  * Extensibility
+
+  -> other op, full string process, 
 
 * Examples: examples of some typical dialogs.
 
+**>** is server, **$** is client
+
 ````
-">" is server, "$" is client
 $ 2
 $ +
 $ 4
