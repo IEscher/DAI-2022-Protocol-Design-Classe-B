@@ -1,5 +1,5 @@
 
-# Pliplop
+# Ian
 
 ## Questions:
 
@@ -68,3 +68,16 @@ $ 0
 $ =
 > 42
 ````
+
+
+# Leichti
+
+![](Images/Capture d’écran 2022-10-31 153831.png)
+
+![](Images/Capture d’écran 2022-10-31 153926.png)
+
+![](Images/Capture d’écran 2022-10-31 154125.png)
+
+![](Images/Capture d’écran 2022-10-31 154143.png)
+
+
