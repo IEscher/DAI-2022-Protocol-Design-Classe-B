@@ -80,4 +80,4 @@ $ =
 
 ![](Images/Capture d’écran 2022-10-31 154143.png)
 
-
+![](Images/Capture d’écran 2022-10-31 155155.png)
