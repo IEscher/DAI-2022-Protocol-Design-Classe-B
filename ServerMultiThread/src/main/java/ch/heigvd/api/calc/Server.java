@@ -13,6 +13,8 @@ public class Server {
 
     private final static Logger LOG = Logger.getLogger(Server.class.getName());
 
+    private static final int port = 3101;
+
     /**
      * Main function to start the server
      */
@@ -28,11 +30,33 @@ public class Server {
      */
     private void start() {
 
-        /* TODO: implement the receptionist server here.
+        /* TODO DONE: implement the receptionist server here.
          *  The receptionist just creates a server socket and accepts new client connections.
          *  For a new client connection, the actual work is done in a new thread
          *  by a new ServerWorker.
          */
 
+        /*
+         * This code was taken from the examples given on Cyberlearn.
+         */
+        ServerSocket serverSocket;
+
+        try {
+            serverSocket = new ServerSocket(port);
+        } catch (IOException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return;
+        }
+
+        while (true) {
+            LOG.log(Level.INFO, "Multi-threaded: Waiting for a new client on port {0}", port);
+            try {
+                Socket clientSocket = serverSocket.accept();
+                LOG.info("A new client has arrived. Starting a new thread and delegating work to a new servant...");
+                new Thread(new ServerWorker(clientSocket)).start();
+            } catch (IOException ex) {
+                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

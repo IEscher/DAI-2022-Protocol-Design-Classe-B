@@ -13,6 +13,10 @@ public class ServerWorker implements Runnable {
 
     private final static Logger LOG = Logger.getLogger(ServerWorker.class.getName());
 
+    Socket clientSocket;
+    BufferedReader in = null;
+    PrintWriter out = null;
+
     /**
      * Instantiation of a new worker mapped to a socket
      *
@@ -22,10 +26,21 @@ public class ServerWorker implements Runnable {
         // Log output on a single line
         System.setProperty("java.util.logging.SimpleFormatter.format", "%4$s: %5$s%6$s%n");
 
-        /* TODO: prepare everything for the ServerWorker to run when the
+        /* TODO DONE: prepare everything for the ServerWorker to run when the
          *   server calls the ServerWorker.run method.
          *   Don't call the ServerWorker.run method here. It has to be called from the Server.
          */
+
+        /*
+         * This code was taken from the examples given on Cyberlearn.
+         */
+        try {
+            this.clientSocket = clientSocket;
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new PrintWriter(clientSocket.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -45,5 +60,50 @@ public class ServerWorker implements Runnable {
          *     - Send to result to the client
          */
 
+        String line;
+        boolean shouldRun = true;
+
+        out.println("Welcome to the Multi-Threaded Server.\nSend me text lines and conclude with the BYE command.");
+        out.flush();
+        try {
+            LOG.info("Reading until client sends BYE or closes the connection...");
+            while ((shouldRun) && (line = in.readLine()) != null) {
+
+                // TODO implement base mechanism here
+
+                if (line.equalsIgnoreCase("bye")) {
+                    shouldRun = false;
+                }
+
+                // example program
+//                out.println("> " + line.toUpperCase());
+//                out.flush();
+            }
+
+            LOG.info("Cleaning up resources...");
+            clientSocket.close();
+            in.close();
+            out.close();
+
+        } catch (IOException ex) {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ex1) {
+                    LOG.log(Level.SEVERE, ex1.getMessage(), ex1);
+                }
+            }
+            if (out != null) {
+                out.close();
+            }
+            if (clientSocket != null) {
+                try {
+                    clientSocket.close();
+                } catch (IOException ex1) {
+                    LOG.log(Level.SEVERE, ex1.getMessage(), ex1);
+                }
+            }
+            LOG.log(Level.SEVERE, ex.getMessage(), ex);
+        }
     }
 }
