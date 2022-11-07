@@ -68,16 +68,13 @@ public class ServerWorker implements Runnable {
         try {
             LOG.info("Reading until client sends BYE or closes the connection...");
             while ((shouldRun) && (line = in.readLine()) != null) {
-
-                // TODO implement base mechanism here
-
                 if (line.equalsIgnoreCase("bye")) {
                     shouldRun = false;
-                }
+                } else {
 
-                // example program
-//                out.println("> " + line.toUpperCase());
-//                out.flush();
+                    // TODO implement base mechanism here
+
+                }
             }
 
             LOG.info("Cleaning up resources...");
