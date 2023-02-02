@@ -1,6 +1,7 @@
 package ch.heigvd.api.calc;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -42,7 +43,7 @@ public class Client {
         // Establish connection with the server and set stdout
         Socket serverSocket;
         try {
-            serverSocket = new Socket((String) null, port); // Not sure about that
+            serverSocket = new Socket(InetAddress.getByName(null), port); // Not sure about that
             stdout = new PrintWriter(serverSocket.getOutputStream());
         } catch (IOException ex) {
             LOG.log(Level.SEVERE, null, ex);
